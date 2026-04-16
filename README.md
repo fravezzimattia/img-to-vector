@@ -1,16 +1,16 @@
 # img-to-svg
 
-Script Python per convertire immagini **JPG/PNG** in **SVG vettoriale** usando `uv`.
+A Python script to convert **JPG/PNG** images into **vector SVG** files using `uv`.
 
-Supporta due modalità:
-- `color`: vettorizzazione a colori (con quantizzazione)
-- `bw`: vettorizzazione bianco/nero (stile logo/sagoma)
+It supports two modes:
+- `color`: color vectorization (with quantization)
+- `bw`: black-and-white vectorization (logo/silhouette style)
 
-Supporta due engine:
-- `vtracer` (**default, consigliato**): qualità migliore e curve più pulite
-- `legacy`: algoritmo interno precedente
+It also supports two engines:
+- `vtracer` (**default, recommended**): better quality and smoother curves
+- `legacy`: previous internal algorithm
 
-## Requisiti
+## Requirements
 
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/)
@@ -21,60 +21,65 @@ Supporta due engine:
 uv sync
 ```
 
-## Utilizzo
+## Usage
 
-### 1) Modalità interattiva
+### 1) Interactive mode
 
 ```bash
 uv run python img_to_vector.py
 ```
 
-Lo script ti chiederà:
-- file input (`.jpg`, `.jpeg`, `.png`)
-- modalità (`color` o `bw`)
-- qualità (`bassa`, `media`, `alta`)
+The script will prompt you for:
+- input file (`.jpg`, `.jpeg`, `.png`)
+- mode (`color` or `bw`)
+- quality (`bassa`, `media`, `alta`)
 
-### 2) Modalità CLI (non interattiva)
+### 2) CLI mode (non-interactive)
 
 ```bash
 uv run python img_to_vector.py \
-  --input /percorso/immagine.png \
-  --output /percorso/output.svg \
+  --input /path/to/image.png \
+  --output /path/to/output.svg \
   --mode color \
   --quality alta \
   --engine vtracer
 ```
 
-Esempio bianco/nero con inversione:
+Black-and-white example with inversion:
 
 ```bash
 uv run python img_to_vector.py \
-  --input /percorso/logo.jpg \
+  --input /path/to/logo.jpg \
   --mode bw \
   --quality media \
   --engine vtracer \
   --invert-bw
 ```
 
-Esempio con engine legacy:
+Example using the legacy engine:
 
 ```bash
 uv run python img_to_vector.py \
-  --input /percorso/immagine.png \
+  --input /path/to/image.png \
   --mode color \
   --quality alta \
   --engine legacy
 ```
 
-## Opzioni disponibili
+## Available options
 
 ```bash
 uv run python img_to_vector.py --help
 ```
 
-## Note
+## Notes
 
-- Formato vettoriale supportato nello script: **SVG**.
-- Se `--output` non è specificato, viene creato automaticamente un file `.svg` con lo stesso nome dell'immagine input.
-- Le immagini PNG con **trasparenza** vengono gestite mantenendo l'area trasparente nello SVG (senza sfondo pieno).
-- Per risultati migliori su immagini complesse/foto, usa `--engine vtracer --quality alta`.
+- Supported vector output format in this script: **SVG**.
+- If `--output` is not specified, a `.svg` file is created automatically using the same name as the input image.
+- PNG images with **transparency** are handled by preserving transparent areas in the SVG (no solid background).
+- For better results on complex images/photos, use `--engine vtracer --quality alta`.
+
+> Note: quality options are in Italian because they match the CLI choices:
+> - `bassa` = low
+> - `media` = medium
+> - `alta` = high
